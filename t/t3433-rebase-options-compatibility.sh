@@ -10,9 +10,8 @@ test_description='tests to ensure compatibility between am and interactive backe
 GIT_AUTHOR_DATE="1999-04-02T08:03:20+05:30"
 export GIT_AUTHOR_DATE
 
-# This is a special case in which both am and interactive backends
-# provide the same output. It was done intentionally because
-# both the backends fall short of optimal behaviour.
+# This is a common case in which both am and interactive backends
+# provide the same output with --ignore-whitespace.
 test_expect_success 'setup' '
 	git checkout -b topic &&
 	q_to_tab >file <<-\EOF &&
@@ -52,9 +51,9 @@ test_expect_success '--ignore-whitespace works with am backend' '
 	new line 2
 	line 3
 	EOF
-	test_must_fail git rebase main side &&
+	test_must_fail git rebase --am main side &&
 	git rebase --abort &&
-	git rebase --ignore-whitespace main side &&
+	git rebase --am --ignore-whitespace main side &&
 	test_cmp expect file
 '
 
@@ -72,7 +71,7 @@ test_expect_success '--ignore-whitespace works with interactive backend' '
 
 test_expect_success '--committer-date-is-author-date works with am backend' '
 	git commit --amend &&
-	git rebase --committer-date-is-author-date HEAD^ &&
+	git rebase --am --committer-date-is-author-date HEAD^ &&
 	git show HEAD --pretty="format:%ai" >authortime &&
 	git show HEAD --pretty="format:%ci" >committertime &&
 	test_cmp authortime committertime
@@ -104,7 +103,7 @@ test_expect_success '--committer-date-is-author-date works with rebase -r' '
 # sets to +0530.
 test_expect_success '--ignore-date works with am backend' '
 	git commit --amend --date="$GIT_AUTHOR_DATE" &&
-	git rebase --ignore-date HEAD^ &&
+	git rebase --am --ignore-date HEAD^ &&
 	git show HEAD --pretty="format:%ai" >authortime &&
 	grep "+0000" authortime
 '
