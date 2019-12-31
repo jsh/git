@@ -5,6 +5,8 @@ int cmd_psuh(int argc, const char **argv, const char *prefix)
 {
 	int i;
 	const char *cfg_name;
+        struct commit *c = NULL;
+        struct strbuf commitline = STRBUF_INIT;
 
         printf(_("Pony saying hello goes here.\n"));
 
@@ -22,6 +24,12 @@ int cmd_psuh(int argc, const char **argv, const char *prefix)
         else
                 printf(_("Your name: %s\n"), cfg_name);
 
+        c = lookup_commit_reference_by_name("origin/master");
+
+        if (c != NULL) {
+                pp_commit_easy(CMIT_FMT_ONELINE, c, &commitline);
+                printf(_("Current commit: %s\n"), commitline.buf);
+        }
+
         return 0;
 }
-
