@@ -1,0 +1,42 @@
+git-psuh(1)
+===========
+
+NAME
+----
+git-psuh - Delight users' typo with a shy horse
+
+
+SYNOPSIS
+--------
+[verse]
+'git-psuh [<arg>...]'
+
+DESCRIPTION
+-----------
+Prints a tentative greeting.
+
+Also counts and lists its options, and a bunch of information about context, including
+
+* the working directory relative to the top level of the repo,
+
+* user.name from the gitconfig file,
+
+* the current branch
+
+* a short log of the most recent commit in origin/master
+
+OPTIONS[[OPTIONS]]
+------------------
+-h::
+	A simple help message.
+
+[<args>...]::
+	0 or more args of any kind.
+
+OUTPUT
+------
+`Pony Saying 'Um, Hello'`
+
+GIT
+---
+Part of the linkgit:git[1] suite
