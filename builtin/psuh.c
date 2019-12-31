@@ -8,7 +8,7 @@ int cmd_psuh(int argc, const char **argv, const char *prefix)
         struct commit *c = NULL;
         struct strbuf commitline = STRBUF_INIT;
 
-        printf(_("Pony saying hello goes here.\n"));
+        printf(_("Pony saying 'Um, Hello'\n"));
 
         printf(Q_("Your args (there is %d):\n",
                   "Your args (there are %d):\n", argc), argc);
